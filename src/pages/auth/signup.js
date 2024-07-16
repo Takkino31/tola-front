@@ -54,11 +54,23 @@ const Signup = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify({
+        firstName: formData.prenom,
+        lastName: formData.nom,
+        username: formData.nomUtilisateur,
+        studentNumber: formData.numeroEtudiant,
+        department: formData.departement,
+        specialty: formData.specialite,
+        email: formData.email,
+        password: formData.motDePasse,
+        role: 'STUDENT'
+      }),
     });
 
     if (res.ok) {
-      router.push('/auth/login');
+      const data = await res.json();
+      localStorage.setItem('token', data.token); // Stocker le JWT dans localStorage
+      router.push('/home'); // Redirection vers la page d'accueil
     } else {
       setErrors({ form: 'Erreur lors de l’inscription' });
     }
