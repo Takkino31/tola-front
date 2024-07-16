@@ -1,6 +1,8 @@
+// pages/home.js
 import React from 'react';
 import Link from 'next/link';
-import styles from '../../styles/Home.module.css'; // Assurez-vous que ce fichier existe
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import styles from '../../styles/Home.module.css';
 
 const Home = () => {
   return (
@@ -9,13 +11,16 @@ const Home = () => {
         <div className={styles.logo}>
           <span>TOLA LOGO</span>
         </div>
-        <nav className={styles.nav}>
+        <div className={styles.searchContainer}>
           <input type="text" placeholder="Search..." className={styles.searchBar} />
-          <div className={styles.icons}>
-            <i className="fas fa-bell"></i>
-            <i className="fas fa-user-circle"></i>
-          </div>
-        </nav>
+          <FontAwesomeIcon icon="search" />
+        </div>
+        <div className={styles.icons}>
+          <FontAwesomeIcon icon="cog" />
+          <FontAwesomeIcon icon="question-circle" />
+          <FontAwesomeIcon icon="bell" />
+          <FontAwesomeIcon icon="user-circle" />
+        </div>
       </header>
       <div className={styles.main}>
         <aside className={styles.sidebarLeft}>
@@ -46,8 +51,8 @@ const Home = () => {
               <p>Pourquoi Javascript est meilleur que PHP ? Je fais du js et du PHP depuis ma première année mais, ce que je peux dire c’est que ya pas de meilleure de language de programmation.</p>
             </div>
             <div className={styles.postActions}>
-              <button>2 <i className="fas fa-thumbs-up"></i></button>
-              <button>2 <i className="fas fa-thumbs-down"></i></button>
+              <button>2 <FontAwesomeIcon icon="thumbs-up" /></button>
+              <button>2 <FontAwesomeIcon icon="thumbs-down" /></button>
             </div>
           </div>
           <form className={styles.replyForm}>
