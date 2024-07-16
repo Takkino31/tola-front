@@ -1,3 +1,4 @@
+// pages/auth/login.js
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
@@ -18,17 +19,22 @@ const Login = () => {
       return;
     }
 
-    const res = await fetch('/api/auth/login', {
+    const res = await fetch('http://localhost:8081/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ username: email, password }),
     });
 
+    const data = await res.json();
+
     if (res.ok) {
-      // Redirige vers la page d'accueil ou une autre page après la connexion
-      router.push('/');
+      // Stocker le token dans le localStorage ou cookie
+      localStorage.setItem('token', data.token);
+
+      // Redirige vers la page d'accueil
+      router.push('/home');
     } else {
       setError('Nom d’utilisateur ou mot de passe incorrect');
     }
