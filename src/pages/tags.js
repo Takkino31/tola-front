@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faCog, faQuestionCircle, faBell, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import styles from '../../styles/Tags.module.css';
 
 const Tags = () => {
@@ -34,45 +33,18 @@ const Tags = () => {
       </Head>
       <header className={styles.header}>
         <div className={styles.logo}>
-          TOLA LOGO
+          <span>TOLA LOGO</span>
         </div>
-        <nav className={styles.nav}>
-          <div className={styles.searchContainer}>
-            <input type="text" placeholder="Search..." className={styles.searchBar} />
-            <FontAwesomeIcon icon={faSearch} />
-          </div>
-          <div className={styles.icons}>
-            {isMounted && (
-              <>
-                <Link href="/search" legacyBehavior>
-                  <a>
-                    <FontAwesomeIcon icon={['fas', 'search']} size="lg" />
-                  </a>
-                </Link>
-                <Link href="/settings" legacyBehavior>
-                  <a>
-                    <FontAwesomeIcon icon={['fas', 'cog']} size="lg" />
-                  </a>
-                </Link>
-                <Link href="/help" legacyBehavior>
-                  <a>
-                    <FontAwesomeIcon icon={['fas', 'question-circle']} size="lg" />
-                  </a>
-                </Link>
-                <Link href="/notifications" legacyBehavior>
-                  <a>
-                    <FontAwesomeIcon icon={['fas', 'bell']} size="lg" />
-                  </a>
-                </Link>
-                <Link href="/profile" legacyBehavior>
-                  <a>
-                    <FontAwesomeIcon icon={['fas', 'user-circle']} size="lg" />
-                  </a>
-                </Link>
-              </>
-            )}
-          </div>
-        </nav>
+        <div className={styles.searchContainer}>
+          <input type="text" placeholder="Search..." className={styles.searchBar} />
+          <FontAwesomeIcon icon="search" />
+        </div>
+        <div className={styles.icons}>
+          <FontAwesomeIcon icon="cog" />
+          <FontAwesomeIcon icon="question-circle" />
+          <FontAwesomeIcon icon="bell" />
+          <FontAwesomeIcon icon="user-circle" />
+        </div>
       </header>
       <main className={styles.main}>
         <aside className={styles.sidebarLeft}>
