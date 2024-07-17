@@ -1,7 +1,9 @@
+// pages/auth/login.js
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
+import { login } from '../../services/auth';
 import styles from '../../../styles/Login.module.css';
 
 const Login = () => {
@@ -19,27 +21,15 @@ const Login = () => {
     }
 
     try {
-      const res = await fetch('http://localhost:8081/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username: email, password }),
-      });
+      const data = await login(email, password);
 
-      const data = await res.json();
+      // Stocker le token dans le localStorage
+      localStorage.setItem('token', data.token);
 
-      if (res.ok) {
-        // Stocker le token dans le localStorage
-        localStorage.setItem('token', data.token);
-
-        // Redirige vers la page d'accueil
-        router.push('/home');
-      } else {
-        setError('Nom d’utilisateur ou mot de passe incorrect');
-      }
+      // Redirige vers la page d'accueil
+      router.push('/home');
     } catch (error) {
-      setError('Une erreur est survenue. Veuillez réessayer plus tard.');
+      setError('Nom d’utilisateur ou mot de passe incorrect');
     }
   };
 

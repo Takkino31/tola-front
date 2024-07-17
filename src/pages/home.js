@@ -1,12 +1,21 @@
-// pages/home.js
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import Head from 'next/head';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from '../../styles/Home.module.css';
 
 const Home = () => {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   return (
     <div className={styles.container}>
+      <Head>
+        <title>Accueil</title>
+      </Head>
       <header className={styles.header}>
         <div className={styles.logo}>
           <span>TOLA LOGO</span>
@@ -22,13 +31,37 @@ const Home = () => {
           <FontAwesomeIcon icon="user-circle" />
         </div>
       </header>
-      <div className={styles.main}>
+      <main className={styles.main}>
         <aside className={styles.sidebarLeft}>
           <ul>
-            <li><Link href="/">Accueil</Link></li>
-            <li><Link href="/tags">Tags</Link></li>
-            <li><Link href="/saved">Enregistrés</Link></li>
-            <li><Link href="/members">Membres</Link></li>
+            <li>
+              <Link href="/home" legacyBehavior>
+                <a>
+                  <FontAwesomeIcon icon={['fas', 'home']} /> Accueil
+                </a>
+              </Link>
+            </li>
+            <li>
+              <Link href="/tags" legacyBehavior>
+                <a>
+                  <FontAwesomeIcon icon={['fas', 'tags']} /> Tags
+                </a>
+              </Link>
+            </li>
+            <li>
+              <Link href="/saved" legacyBehavior>
+                <a>
+                  <FontAwesomeIcon icon={['fas', 'bookmark']} /> Enregistrés
+                </a>
+              </Link>
+            </li>
+            <li>
+              <Link href="/members" legacyBehavior>
+                <a>
+                  <FontAwesomeIcon icon={['fas', 'users']} /> Membres
+                </a>
+              </Link>
+            </li>
           </ul>
         </aside>
         <section className={styles.content}>
@@ -51,8 +84,12 @@ const Home = () => {
               <p>Pourquoi Javascript est meilleur que PHP ? Je fais du js et du PHP depuis ma première année mais, ce que je peux dire c’est que ya pas de meilleure de language de programmation.</p>
             </div>
             <div className={styles.postActions}>
-              <button>2 <FontAwesomeIcon icon="thumbs-up" /></button>
-              <button>2 <FontAwesomeIcon icon="thumbs-down" /></button>
+              {isMounted && (
+                <>
+                  <button>2 <FontAwesomeIcon icon={['fas', 'thumbs-up']} /></button>
+                  <button>2 <FontAwesomeIcon icon={['fas', 'thumbs-down']} /></button>
+                </>
+              )}
             </div>
           </div>
           <form className={styles.replyForm}>
@@ -70,9 +107,9 @@ const Home = () => {
             {/* Ajoutez des liens ou du contenu ici */}
           </div>
         </aside>
-      </div>
+      </main>
       <footer className={styles.footer}>
-        <p>&copy; 2023 TOLA. Tous droits réservés.</p>
+        &copy; 2023 TOLA. Tous droits réservés.
       </footer>
     </div>
   );

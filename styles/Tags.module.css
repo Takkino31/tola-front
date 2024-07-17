@@ -1,0 +1,142 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden; /* Pour éviter le débordement global */
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #E0E0E0;
+    color: black;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+  }
+  
+  .logo {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .searchContainer {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 25px;
+    padding: 5px 15px;
+    width: 30%;
+  }
+  
+  .searchBar {
+    border: none;
+    outline: none;
+    width: 90%;
+  }
+  
+  .icons {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .icons .fa-icon {
+    color: #26698F;
+  }
+  
+  .main {
+    display: flex;
+    flex: 1;
+    margin-top: 60px; /* Hauteur du header */
+  }
+  
+  .sidebarLeft, .sidebarRight {
+    width: 200px;
+    background-color: #F4F4F4;
+    padding: 20px;
+    position: fixed;
+    top: 60px; /* Hauteur du header */
+    bottom: 0;
+    overflow-y: auto;
+  }
+  
+  .sidebarLeft {
+    left: 0;
+  }
+  
+  .sidebarRight {
+    right: 0;
+  }
+  
+  .sidebarLeft ul, .sidebarRight ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .sidebarLeft li, .sidebarRight li {
+    margin-bottom: 10px;
+  }
+  
+  .sidebarLeft li a, .sidebarRight li a {
+    text-decoration: none;
+    color: #000;
+  }
+  
+  .content {
+    flex: 1;
+    padding: 20px;
+    margin-left: 220px; /* Largeur de la sidebar gauche */
+    margin-right: 220px; /* Largeur de la sidebar droite */
+    overflow-y: auto;
+    height: calc(100vh - 60px); /* Hauteur totale - hauteur du header */
+  }
+  
+  .tagsContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  
+  .tagCard {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .tagCard h3 {
+    margin: 0;
+    color: #26698F; /* Couleur bleue pour les titres */
+  }
+  
+  .tagCard p {
+    margin: 10px 0;
+  }
+  
+  .tagActions {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .tagActions button {
+    background: none;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+  }
+  
+  .footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #F4F4F4;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+  

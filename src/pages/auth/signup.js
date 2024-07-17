@@ -1,7 +1,9 @@
+// pages/auth/signup.js
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
+import { signup } from '../../services/auth';
 import styles from '../../../styles/Signup.module.css';
 
 const Signup = () => {
@@ -49,12 +51,8 @@ const Signup = () => {
       return;
     }
 
-    const res = await fetch('/api/auth/signup', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
+    try {
+      const data = await signup({
         firstName: formData.prenom,
         lastName: formData.nom,
         username: formData.nomUtilisateur,
@@ -64,14 +62,11 @@ const Signup = () => {
         email: formData.email,
         password: formData.motDePasse,
         role: 'STUDENT'
-      }),
-    });
+      });
 
-    if (res.ok) {
-      const data = await res.json();
       localStorage.setItem('token', data.token); // Stocker le JWT dans localStorage
       router.push('/home'); // Redirection vers la page d'accueil
-    } else {
+    } catch (error) {
       setErrors({ form: 'Erreur lors de l’inscription' });
     }
   };
