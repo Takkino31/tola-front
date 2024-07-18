@@ -2,29 +2,26 @@ import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import axios from 'axios';
 import styles from '../../styles/Tags.module.css';
 
 const Tags = () => {
   const [isMounted, setIsMounted] = useState(false);
+  const [tags, setTags] = useState([]);
 
   useEffect(() => {
     setIsMounted(true);
+    fetchTags();
   }, []);
 
-  const fakeTags = [
-    { id: 1, libelle: "JavaScript" },
-    { id: 2, libelle: "PHP" },
-    { id: 3, libelle: "Python" },
-    { id: 4, libelle: "Java" },
-    { id: 5, libelle: "C++" },
-    { id: 6, libelle: "Ruby" },
-    { id: 7, libelle: "Go" },
-    { id: 8, libelle: "Swift" },
-    { id: 9, libelle: "Kotlin" },
-    { id: 10, libelle: "Laravel" },
-    { id: 11, libelle: "React" },
-    { id: 12, libelle: "Spring Boot" },
-  ];
+  const fetchTags = async () => {
+    try {
+      const response = await axios.get('/api/tags');
+      setTags(response.data);
+    } catch (error) {
+      console.error('Erreur lors de la récupération des tags:', error);
+    }
+  };
 
   return (
     <div className={styles.container}>
@@ -84,10 +81,10 @@ const Tags = () => {
           <p className={styles.tagDescription}>un tag ce que c’est blablabla ...</p>
           <input type="text" placeholder="Search..." className={styles.searchBar} />
           <div className={styles.tagsContainer}>
-            {fakeTags.map(tag => (
+            {tags.map(tag => (
               <div key={tag.id} className={styles.tagCard}>
                 <h3>{tag.libelle}</h3>
-                <p>Je suis un langage de programmation développé en 10 jours et je suis maintenant sur le toit du monde</p>
+                <p>{tag.descriptif}</p>
                 <p>234 questions</p>
                 <div className={styles.tagActions}>
                   <button>234 questions</button>
