@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import DynamicFontAwesomeIcon from '../components/DynamicFontAwesomeIcon';
 import axios from 'axios';
 import styles from '../../styles/Tags.module.css';
 
@@ -34,13 +34,13 @@ const Tags = () => {
         </div>
         <div className={styles.searchContainer}>
           <input type="text" placeholder="Search..." className={styles.searchBar} />
-          <FontAwesomeIcon icon="search" />
+          <DynamicFontAwesomeIcon icon="search" />
         </div>
         <div className={styles.icons}>
-          <FontAwesomeIcon icon="cog" />
-          <FontAwesomeIcon icon="question-circle" />
-          <FontAwesomeIcon icon="bell" />
-          <FontAwesomeIcon icon="user-circle" />
+          <DynamicFontAwesomeIcon icon="cog" />
+          <DynamicFontAwesomeIcon icon="question-circle" />
+          <DynamicFontAwesomeIcon icon="bell" />
+          <DynamicFontAwesomeIcon icon="user-circle" />
         </div>
       </header>
       <main className={styles.main}>
@@ -49,28 +49,28 @@ const Tags = () => {
             <li>
               <Link href="/home" legacyBehavior>
                 <a>
-                  <FontAwesomeIcon icon={['fas', 'home']} /> Accueil
+                  <DynamicFontAwesomeIcon icon={['fas', 'home']} /> Accueil
                 </a>
               </Link>
             </li>
             <li>
               <Link href="/tags" legacyBehavior>
                 <a>
-                  <FontAwesomeIcon icon={['fas', 'tags']} /> Tags
+                  <DynamicFontAwesomeIcon icon={['fas', 'tags']} /> Tags
                 </a>
               </Link>
             </li>
             <li>
               <Link href="/saved" legacyBehavior>
                 <a>
-                  <FontAwesomeIcon icon={['fas', 'bookmark']} /> Enregistrés
+                  <DynamicFontAwesomeIcon icon={['fas', 'bookmark']} /> Enregistrés
                 </a>
               </Link>
             </li>
             <li>
               <Link href="/members" legacyBehavior>
                 <a>
-                  <FontAwesomeIcon icon={['fas', 'users']} /> Membres
+                  <DynamicFontAwesomeIcon icon={['fas', 'users']} /> Membres
                 </a>
               </Link>
             </li>

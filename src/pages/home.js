@@ -1,15 +1,45 @@
 import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import DynamicFontAwesomeIcon from '../components/DynamicFontAwesomeIcon';
 import styles from '../../styles/Home.module.css';
 
 const Home = () => {
   const [isMounted, setIsMounted] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const replyText = e.target.replyText.value.trim();
+    if (replyText) {
+      console.log('Reply submitted:', replyText);
+      e.target.replyText.value = '';
+      handleCloseModal();
+    } else {
+      console.log('Reply cannot be empty');
+    }
+  };
+
+  const fakeResponses = [
+    { id: 1, content: "Réponse 1 : Javascript est plus flexible que PHP.", author: "User1", date: "Apr 24, 2019 at 16:00" },
+    { id: 2, content: "Réponse 2 : PHP a des frameworks puissants comme Laravel.", author: "User2", date: "Apr 24, 2019 at 16:10" },
+    { id: 3, content: "Réponse 3 : Javascript permet de faire du développement full-stack.", author: "User3", date: "Apr 24, 2019 at 16:20" },
+    { id: 4, content: "Réponse 4 : Javascript est plus flexible que PHP.", author: "User4", date: "Apr 24, 2019 at 16:00" },
+    { id: 5, content: "Réponse 5 : PHP a des frameworks puissants comme Laravel.", author: "User5", date: "Apr 24, 2019 at 16:10" },
+   
+  ];
 
   return (
     <div className={styles.container}>
@@ -22,13 +52,13 @@ const Home = () => {
         </div>
         <div className={styles.searchContainer}>
           <input type="text" placeholder="Search..." className={styles.searchBar} />
-          <FontAwesomeIcon icon="search" />
+          <DynamicFontAwesomeIcon icon="search" />
         </div>
         <div className={styles.icons}>
-          <FontAwesomeIcon icon="cog" />
-          <FontAwesomeIcon icon="question-circle" />
-          <FontAwesomeIcon icon="bell" />
-          <FontAwesomeIcon icon="user-circle" />
+          <DynamicFontAwesomeIcon icon="cog" />
+          <DynamicFontAwesomeIcon icon="question-circle" />
+          <DynamicFontAwesomeIcon icon="bell" />
+          <DynamicFontAwesomeIcon icon="user-circle" />
         </div>
       </header>
       <main className={styles.main}>
@@ -37,34 +67,38 @@ const Home = () => {
             <li>
               <Link href="/home" legacyBehavior>
                 <a>
-                  <FontAwesomeIcon icon={['fas', 'home']} /> Accueil
+                  <DynamicFontAwesomeIcon icon={['fas', 'home']} /> Accueil
                 </a>
               </Link>
             </li>
             <li>
               <Link href="/tags" legacyBehavior>
                 <a>
-                  <FontAwesomeIcon icon={['fas', 'tags']} /> Tags
+                  <DynamicFontAwesomeIcon icon={['fas', 'tags']} /> Tags
                 </a>
               </Link>
             </li>
             <li>
               <Link href="/saved" legacyBehavior>
                 <a>
-                  <FontAwesomeIcon icon={['fas', 'bookmark']} /> Enregistrés
+                  <DynamicFontAwesomeIcon icon={['fas', 'bookmark']} /> Enregistrés
                 </a>
               </Link>
             </li>
             <li>
               <Link href="/members" legacyBehavior>
                 <a>
-                  <FontAwesomeIcon icon={['fas', 'users']} /> Membres
+                  <DynamicFontAwesomeIcon icon={['fas', 'users']} /> Membres
                 </a>
               </Link>
             </li>
           </ul>
         </aside>
         <section className={styles.content}>
+          <button className={styles.addResponseButton} onClick={handleOpenModal}>
+            Ajouter une réponse
+          </button>
+
           <div className={styles.post}>
             <div className={styles.postHeader}>
               <div className={styles.postInfo}>
@@ -86,16 +120,21 @@ const Home = () => {
             <div className={styles.postActions}>
               {isMounted && (
                 <>
-                  <button>2 <FontAwesomeIcon icon={['fas', 'thumbs-up']} /></button>
-                  <button>2 <FontAwesomeIcon icon={['fas', 'thumbs-down']} /></button>
+                  <button>2 <DynamicFontAwesomeIcon icon={['fas', 'thumbs-up']} /></button>
+                  <button>2 <DynamicFontAwesomeIcon icon={['fas', 'thumbs-down']} /></button>
                 </>
               )}
             </div>
           </div>
-          <form className={styles.replyForm}>
-            <textarea placeholder="Postez votre réponse"></textarea>
-            <button type="submit">Postez votre réponse</button>
-          </form>
+
+          <div className={styles.responses}>
+            {fakeResponses.map((response, index) => (
+              <div key={response.id} className={index % 2 === 0 ? styles.responseEven : styles.responseOdd}>
+                <p>{response.content}</p>
+                <p><strong>{response.author}</strong> - {response.date}</p>
+              </div>
+            ))}
+          </div>
         </section>
         <aside className={styles.sidebarRight}>
           <div>
@@ -111,6 +150,18 @@ const Home = () => {
       <footer className={styles.footer}>
         &copy; 2023 TOLA. Tous droits réservés.
       </footer>
+
+      {isModalOpen && (
+        <div className={styles.modal}>
+          <div className={styles.modalContent}>
+            <span className={styles.close} onClick={handleCloseModal}>&times;</span>
+            <form className={styles.replyForm} onSubmit={handleSubmit}>
+              <textarea name="replyText" placeholder="Postez votre réponse"></textarea>
+              <button type="submit">Postez votre réponse</button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
